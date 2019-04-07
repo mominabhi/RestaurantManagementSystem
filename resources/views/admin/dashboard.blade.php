@@ -18,6 +18,7 @@
     <link href="{{asset('admin/css/style-default.css')}}" rel="stylesheet" id="style_color" />
     <link href="{{asset('admin/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css')}}" rel="stylesheet" />
     <link href="{{asset('admin/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css')}}" rel="stylesheet" type="text/css" media="screen"/>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

@@ -21,6 +21,8 @@
     <script type="text/javascript" src="{{asset('asset/js/atooltip.jquery.js')}}"></script>
     <script type="text/javascript" src="{{asset('asset/js/css3-mediaqueries.js')}}"></script>
     <script src="{{asset('asset/js/responsiveslides.js')}}"></script>
+    {{--<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>--}}
+    {{--<link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">--}}
     <script>
         $(function () {
             $("#slidez").responsiveSlides({
@@ -38,7 +40,7 @@
 <div class="body6">
     <div class="body1">
         <div class="body5">
-            <div class="main zerogrid">
+            <div class="main zerogrid" >
                 <!-- header -->
                 <header>
                     <h1><a href="{{url('/')}}" id="logo"><img src="{{asset('asset/images/logo.png')}}"/></a></h1>
@@ -61,7 +63,8 @@
                 </header>
                 <!-- / header -->
                 <!-- content -->
-                <article id="content">
+
+                <article id="content" >
                   @yield('slider')
                   @yield('wrap')
                 </article>

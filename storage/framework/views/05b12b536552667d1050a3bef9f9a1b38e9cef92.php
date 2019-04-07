@@ -21,6 +21,8 @@
     <script type="text/javascript" src="<?php echo e(asset('asset/js/atooltip.jquery.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('asset/js/css3-mediaqueries.js')); ?>"></script>
     <script src="<?php echo e(asset('asset/js/responsiveslides.js')); ?>"></script>
+    
+    
     <script>
         $(function () {
             $("#slidez").responsiveSlides({
@@ -38,7 +40,7 @@
 <div class="body6">
     <div class="body1">
         <div class="body5">
-            <div class="main zerogrid">
+            <div class="main zerogrid" >
                 <!-- header -->
                 <header>
                     <h1><a href="<?php echo e(url('/')); ?>" id="logo"><img src="<?php echo e(asset('asset/images/logo.png')); ?>"/></a></h1>
@@ -61,7 +63,8 @@
                 </header>
                 <!-- / header -->
                 <!-- content -->
-                <article id="content">
+
+                <article id="content" >
                   <?php echo $__env->yieldContent('slider'); ?>
                   <?php echo $__env->yieldContent('wrap'); ?>
                 </article>
