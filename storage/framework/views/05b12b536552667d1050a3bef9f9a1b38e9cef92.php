@@ -53,7 +53,7 @@
                     </nav>
                     <nav>
                         <ul id="menu">
-                            <li class="active"><a href="<?php echo e(url('/')); ?>">Restaurant</a></li>
+                            <li><a href="<?php echo e(url('/')); ?>">Restaurant</a></li>
                             <li><a href="<?php echo e(url('/cuisine')); ?>">Cuisine</a></li>
                             <li><a href="#">Wine List</a></li>
                             <li><a href="#">CookBook</a></li>
@@ -67,6 +67,7 @@
                 <article id="content" >
                   <?php echo $__env->yieldContent('slider'); ?>
                   <?php echo $__env->yieldContent('wrap'); ?>
+                    <?php echo $__env->yieldContent('body'); ?>
                 </article>
             </div>
         </div>
@@ -83,7 +84,8 @@
 <div class="body3">
     <div class="main zerogrid">
         <!-- footer -->
-        <?php echo $__env->yieldContent('footer'); ?>
+        
+        <?php echo $__env->make('pages.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!-- / footer -->
     </div>
 </div>

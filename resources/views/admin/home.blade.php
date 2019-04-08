@@ -91,43 +91,6 @@
     <div class="space10"></div>
     <!--END METRO STATES-->
 </div>
-<div class="row-fluid">
-    <div class="span6">
-        <!-- BEGIN CHART PORTLET-->
-        <div class="widget ">
-            <div class="widget-title">
-                <h4><i class="icon-reorder"></i> Doughnut</h4>
-                <span class="tools">
-                                <a href="javascript:;" class="icon-chevron-down"></a>
-                                <a href="javascript:;" class="icon-remove"></a>
-                            </span>
-            </div>
-            <div class="widget-body">
-                <div class="text-center">
-                    <canvas id="doughnut" height="300" width="400"></canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END CHART PORTLET-->
-    </div>
-    <div class="span6">
-        <!-- BEGIN CHART PORTLET-->
-        <div class="widget green">
-            <div class="widget-title">
-                <h4><i class="icon-reorder"> </i> Line</h4>
-                <span class="tools">
-                                <a href="javascript:;" class="icon-chevron-down"></a>
-                                <a href="javascript:;" class="icon-remove"></a>
-                            </span>
-            </div>
-            <div class="widget-body">
-                <div class="text-center">
-                    <canvas id="line" height="300" width="450"></canvas>
-                </div>
-            </div>
-        </div>
-        <!-- END CHART PORTLET-->
-    </div>
-</div>
+
 <!-- END PAGE CONTENT-->
 @endsection

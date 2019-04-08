@@ -6,22 +6,14 @@
             <div class="span12">
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    Data Table
+                    Online Orders
                 </h3>
                 <?php if(Session::has('success')): ?>
                     <div class="alert alert-success">
                         <?php echo e(Session('success')); ?>
 
                     </div>
-                <?php endif; ?>
-                <div class="breadcrumb">
-                    <form action="#" class="hidden-phone">
-                        <div class="input-append search-input-area">
-                            <input class="" type="text">
-                            <button class="btn" type="button"><i class="icon-search"></i></button>
-                        </div>
-                    </form>
-                </div>
+            <?php endif; ?>
                 <!-- END PAGE TITLE & BREADCRUMB-->
             </div>
         </div>
@@ -32,7 +24,7 @@
                 <!-- BEGIN EXAMPLE TABLE widget-->
                 <div class="widget red">
                     <div class="widget-title">
-                        <h4><i class="icon-reorder"></i> All Cuisine List Table</h4>
+                        <h4><i class="icon-reorder"></i> All Online Orders </h4>
                         <span class="tools">
                                 <a href="javascript:;" class="icon-chevron-down"></a>
                                 <a href="javascript:;" class="icon-remove"></a>
@@ -43,33 +35,25 @@
                             <thead>
                             <tr>
                                 <th class="hidden-phone">#</th>
-                                <th class="hidden-phone">Name</th>
-                                <th class="hidden-phone">Price</th>
-                                <th class="hidden-phone">Food Type</th>
-                                <th class="hidden-phone">Description</th>
-                                <th class="hidden-phone">Image</th>
+                                <th class="hidden-phone">user_id</th>
+                                <th class="hidden-phone">User Name</th>
+                                <th class="hidden-phone">cuisineList_id</th>
+                                <th class="hidden-phone">quantity</th>
+                                <th class="hidden-phone">created_at</th>
                                 <th class="hidden-phone">Actions</th>
-
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $__currentLoopData = $cuisines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cuisine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $online_orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $online_order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr class="odd gradeX">
-                                    <td><?php echo e($cuisine->id); ?></td>
-                                    <td><?php echo e($cuisine->name); ?></td>
-                                    <td><?php echo e($cuisine->price); ?></td>
-                                    <td><?php echo e($cuisine->type); ?></td>
-                                    <td><?php echo e(substr($cuisine->description,0,10)); ?></td>
+                                    <td><?php echo e($online_order->id); ?></td>
+                                    <td><?php echo e($online_order->user_id); ?></td>
+                                    <td><?php echo e($online_order->user_name); ?></td>
+                                    <td><?php echo e($online_order->cuisineList_id); ?></td>
+                                    <td><?php echo e($online_order->quantity); ?></td>
+                                    <td><?php echo e($online_order->created_at); ?></td>
                                     <td>
-                                        <img src="<?php echo e(asset($cuisine->image)); ?>" style="width: 50px; height: 50px">
-                                    </td>
-                                    <td>
-                                        <a href="<?php echo e(URL::to('admin/edit_cuisine/'.$cuisine->id)); ?>">
-                                            <button class="btn btn-primary">Edit</button>
-                                        </a>
-                                        <a href="<?php echo e(URL::to('admin/delete_cuisine/'.$cuisine->id)); ?>">
-                                            <button class="btn btn-danger">Delete</button>
-                                        </a>
+                                        <a href="<?php echo e(URL::to('admin/delete_order/'.$online_order->id)); ?>"><button class="btn btn-danger">Order Complete</button></a>
                                     </td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

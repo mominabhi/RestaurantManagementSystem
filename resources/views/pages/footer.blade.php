@@ -1,5 +1,3 @@
-@extends('index')
-@section('footer')
 <footer>
     <div class="wrapper">
         <section class="col-2-3"><div class="wrap-col">
@@ -19,4 +17,4 @@
     </div>
     <!-- {%FOOTER_LINK} -->
 </footer>
-@endsection
+

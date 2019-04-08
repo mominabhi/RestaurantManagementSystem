@@ -158,7 +158,8 @@ trait AuthenticatesUsers
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+//        return $this->loggedOut($request) ?: redirect('/login');
+        return $this->loggedOut($request) ?: redirect()->back();
     }
 
     /**

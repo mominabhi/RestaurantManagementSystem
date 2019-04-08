@@ -5,7 +5,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Metro Lab</title>
+    <title>Admin Panel</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
     <meta content="Mosaddek" name="author" />
@@ -33,11 +33,6 @@
                 <div class="icon-reorder"></div>
             </div>
             <!--END SIDEBAR TOGGLE-->
-            <!-- BEGIN LOGO -->
-            <a class="brand" href="{{url('/dashboard')}}">
-                <img src="{{asset('admin/img/logo.png')}}" alt="Metro Lab" />
-            </a>
-            <!-- END LOGO -->
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
             <a class="btn btn-navbar collapsed" id="main_menu_trigger" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
@@ -54,13 +49,23 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{asset('admin/img/avatar1_small.jpg')}}" alt="">
-                            <span class="username">Jhon Doe</span>
+                            <span class="username">{{Auth::user()->name}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                            <li><a href="{{url('/login')}}"><i class="icon-key"></i> Log Out</a></li>
+
+                            <li>
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="icon-key"></i>
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            </li>
                         </ul>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
@@ -80,7 +85,7 @@
             <!-- BEGIN SIDEBAR MENU -->
             <ul class="sidebar-menu">
                 <li class="sub-menu active">
-                    <a class="" href="index.html">
+                    <a class="" href="{{route('admin.dashboard')}}">
                         <i class="icon-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
@@ -88,36 +93,24 @@
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon-book"></i>
-                        <span>UI Elements</span>
+                        <span>Cuisine Maintain</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" href="general.html">General</a></li>
-                        <li><a class="" href="button.html">Buttons</a></li>
-                        <li><a class="" href="slider.html">Sliders</a></li>
-                        <li><a class="" href="metro_view.html">Metro View</a></li>
-                        <li><a class="" href="tabs_accordion.html">Tabs & Accordions</a></li>
+                        <li><a class="" href="{{route('admin.data_table')}}">All Cuisine</a></li>
+                        <li><a class="" href="{{route('admin.addFood')}}">Add Cuisine</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon-cogs"></i>
-                        <span>Components</span>
+                        <span>Cuisine Order</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" href="calendar.html">Calendar</a></li>
-                        <li><a class="" href="grids.html">Grids</a></li>
-                        <li><a class="" href="chartjs.html">Chart Js</a></li>
-                        <li><a class="" href="flot_chart.html">Flot Charts</a></li>
-                        <li><a class="" href="gallery.html"> Gallery</a></li>
+                        <li><a class="" href="{{route('admin.online_order')}}">Online Order</a></li>
+                        <li><a class="" href="#"> On-Desk Order</a></li>
                     </ul>
-                </li>
-                <li>
-                    <a class="" href="{{url('/login')}}">
-                        <i class="icon-user"></i>
-                        <span>Login Page</span>
-                    </a>
                 </li>
             </ul>
             <!-- END SIDEBAR MENU -->

@@ -1,4 +1,3 @@
-<?php $__env->startSection('footer'); ?>
 <footer>
     <div class="wrapper">
         <section class="col-2-3"><div class="wrap-col">
@@ -18,6 +17,4 @@
     </div>
     <!-- {%FOOTER_LINK} -->
 </footer>
-<?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('index', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

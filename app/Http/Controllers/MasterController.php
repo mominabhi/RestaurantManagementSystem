@@ -2,93 +2,92 @@
 
 namespace App\Http\Controllers;
 
+use App\CuisineList;
+use App\Customer;
+use App\Online_order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+
+session_start();
 
 class MasterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-       $slider = view('pages.slider');
+        $slider = view('pages.slider');
         $wrap = view('pages.wrap');
-        $footer = view('pages.footer');
+
         $wrapper = view('pages.wrapper');
         return view('index')
             ->with('slider', $slider)
             ->with('wrap', $wrap)
-            ->with('wrapper', $wrapper)
-            ->with('footer', $footer);
+            ->with('wrapper', $wrapper);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function showCuisine()
     {
-        $footer = view('pages.footer');
-        return view('pages.cousine')
-            ->with('footer', $footer);
+        $cuisine = CuisineList::all();
+        return view('pages.cuisine')
+            ->with('cuisines', $cuisine);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function cuisine_detail($id)
     {
-        //
+        if (Session::has('customer_email')) {
+            $cuisine = CuisineList::find($id);
+            Session::put('cuisine_id',$id);
+            return view('pages.cuisine_detail')->with('cuisine', $cuisine);
+        } else {
+            return redirect()->route('user.login');
+        }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function cuisine_order(Request $request)
     {
-        //
+        $online_order = new Online_order();
+        $online_order->cuisineList_id = $request->input('cuisineList_id');
+        $online_order->quantity = $request->input('quantity');
+        $online_order->save();
+        return redirect()->route('cuisine')->with('success', 'Successfully Ordered');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function login()
     {
-        //
+        return view('pages.login');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function registration()
     {
-        //
+        return view('pages.registration');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function customer_login(Request $request)
     {
-        //
+
+    }
+
+    public function customer_registration(Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:customers,email',
+            'password' => 'required|confirmed',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+        $customer = new Customer();
+        $customer->name = $request->input('name');
+        $customer->email = $request->input('email');
+        $customer->password = Hash::make($request->input('password'));
+        $customer->password_confirmation = Hash::make($request->input('password_confirmation'));;
+        $customer->phone = $request->input('phone');
+        $customer->address = $request->input('address');
+        $customer->save();
+        Session::put('customer_id', $customer->id);
+        Session::put('customer_email', $customer->email);
+        return redirect()->route('cuisine_detail');
     }
 }

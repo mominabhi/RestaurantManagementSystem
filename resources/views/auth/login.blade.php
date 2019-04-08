@@ -1,73 +1,70 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="{{asset('admin/assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/assets/bootstrap/css/bootstrap-responsive.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/css/style.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/css/style-responsive.css')}}" rel="stylesheet" />
+    <link href="{{asset('admin/css/style-default.css')}}" rel="stylesheet" id="style_color" />
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="lock">
+<div class="lock-header">
+    <!-- BEGIN LOGO -->
+    <a class="center" id="logo" href="{{url('/')}}" style="text-decoration: none">
+       <h1 class="text-center">Restaurant Management System </h1>
+    </a>
+    <!-- END LOGO -->
+</div>
+<div class="login-wrap">
+    <div class="metro single-size red">
+        <div class="locked">
+            <i class="icon-lock"></i>
+            <span>Login</span>
+        </div>
+    </div>
+    <form action="{{route('login')}}" method="POST">
+        {{csrf_field()}}
+        <div class="metro double-size green">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="input-append lock-input">
+                <input type="email" class="" placeholder="Enter Email" name="email" required>
             </div>
+        </div>
+        <div class="metro double-size yellow">
+
+            <div class="input-append lock-input">
+                <input type="password" class="" placeholder="Password" name="password" required>
+            </div>
+        </div>
+        <div class="metro single-size terques login">
+
+            <button type="submit" class="btn login-btn">
+                Login
+                <i class=" icon-long-arrow-right"></i>
+            </button>
+
+        </div>
+    </form>
+    <div class="login-footer">
+        <div class="remember-hint pull-left">
+            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+        </div>
+        <div class="forgot-hint pull-right">
+            <a id="forget-password" class="" href="{{ route('password.request') }}">Forgot Password?</a>
         </div>
     </div>
 </div>
-@endsection
+</body>
+<!-- END BODY -->
+</html>

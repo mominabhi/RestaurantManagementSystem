@@ -1,33 +1,29 @@
 <?php echo $__env->make('pages.links', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->startSection('wrap'); ?>
-<div class="wrap">
-    <br>
-<section class="col-1-3">
-<div class="wrap-col">
-<div class="box">
-<div>
-<h2>Did You <span>Know</span></h2>
-<figure><img src="<?php echo e(asset('asset/images/page2_img1.jpg')); ?>" alt=""></figure>
-<p class="pad_bot1">Neque porro quisquam est, qui dolor- em ipsum qudolor sitamet consectetur
-adipisci velit, sed quia non numquam eius modi tempora incidunt.</p>
-<a href="#" class="button1">Read More</a>
-</div>
-</div>
-</div>
-</section>
-</div>
+    <div class="wrap">
+        <br>
+        <?php if(Session::has('success')): ?>
+            <div class="alert alert-danger">
+                <?php echo e(Session('success')); ?>
+
+            </div>
+        <?php endif; ?>
+        <?php $__currentLoopData = $cuisines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cuisine): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <section class="col-1-3">
+                <div class="wrap-col">
+                    <div class="box">
+                        <div>
+                            <h2><?php echo e($cuisine->name); ?></h2>
+                            <figure><img src="<?php echo e(asset($cuisine->image)); ?>" alt=""></figure>
+                            <p class="pad_bot1">Price:<?php echo e($cuisine->price); ?> ৳</p>
+                          <a href="<?php echo e(URL::to('cuisine_detail/'.$cuisine->id)); ?>" class="button1">See Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
 <?php $__env->stopSection(); ?>
-
-
-    
-    
-    
-    
-        
-            
-        
-    
-
 <?php $__env->startSection('wrapper'); ?>
     <div class="wrapper">
         <section>

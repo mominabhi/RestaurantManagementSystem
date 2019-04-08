@@ -53,7 +53,7 @@
                     </nav>
                     <nav>
                         <ul id="menu">
-                            <li class="active"><a href="{{url('/')}}">Restaurant</a></li>
+                            <li><a href="{{url('/')}}">Restaurant</a></li>
                             <li><a href="{{url('/cuisine')}}">Cuisine</a></li>
                             <li><a href="#">Wine List</a></li>
                             <li><a href="#">CookBook</a></li>
@@ -67,6 +67,7 @@
                 <article id="content" >
                   @yield('slider')
                   @yield('wrap')
+                    @yield('body')
                 </article>
             </div>
         </div>
@@ -83,7 +84,8 @@
 <div class="body3">
     <div class="main zerogrid">
         <!-- footer -->
-        @yield('footer')
+        {{--@yield('footer')--}}
+        @include('pages.footer')
         <!-- / footer -->
     </div>
 </div>
