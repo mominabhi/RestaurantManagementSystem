@@ -1,4 +1,5 @@
         <?php echo $__env->make('pages.links', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<a class="btn btn-danger" href="<?php echo e(route('user.logout')); ?>">Logout</a>
         <?php $__env->startSection('wrap'); ?>
             <div class="wrap">
                 <br>

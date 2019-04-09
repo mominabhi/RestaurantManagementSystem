@@ -20,12 +20,13 @@ Route::get('/cuisine', 'MasterController@showCuisine')->name('cuisine');
 Route::get('cuisine_detail/{id}','MasterController@cuisine_detail')->name('cuisine_detail');
 Route::post('/cuisine_order', 'MasterController@cuisine_order')->name('cuisine.order');
 
+
 Route::group(['prefix'=>'user', 'as'=>'user.'],function (){
     Route::get('login',['as'=>'login','uses'=>'MasterController@login']);
     Route::post('customer_login',['as'=>'customer_login','uses'=>'MasterController@customer_login']);
     Route::get('registration',['as'=>'registration','uses'=>'MasterController@registration']);
     Route::post('customer_registration',['as'=>'customer_registration','uses'=>'MasterController@customer_registration']);
-
+    Route::get('logout',['as'=>'logout','uses'=>'MasterController@customer_logout']);
 });
 
 

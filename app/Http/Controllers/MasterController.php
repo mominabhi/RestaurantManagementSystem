@@ -7,6 +7,7 @@ use App\Customer;
 use App\Online_order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 session_start();
@@ -63,14 +64,25 @@ class MasterController extends Controller
         return view('pages.registration');
     }
 
-    public function customer_login(Request $request)
+    public function customer_login(Request $request,$id)
     {
-
+        $password=$request->input('password');
+        $email=$request->input('email');
+             $customer=Customer::where('password',$password)
+                 ->where('email',$email)->first();
+             if($customer)
+             {
+                 return Redirect::route('cuisine_detail', $id);
+//                return Redirect::intended('cuisine_detail/'.$id);
+//                 return redirect()->intended('cuisine_detail');
+             }
+             else{
+                 return redirect()->route('user.login')->with('error','not loggedin');
+             }
     }
 
     public function customer_registration(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:customers,email',
@@ -81,13 +93,19 @@ class MasterController extends Controller
         $customer = new Customer();
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
-        $customer->password = Hash::make($request->input('password'));
-        $customer->password_confirmation = Hash::make($request->input('password_confirmation'));;
+        $customer->password =$request->input('password');
+        $customer->password_confirmation = $request->input('password_confirmation');
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
         $customer->save();
         Session::put('customer_id', $customer->id);
         Session::put('customer_email', $customer->email);
-        return redirect()->route('cuisine_detail');
+        return redirect()->intended('cuisine_detail/{id}');
+    }
+    public function customer_logout()
+    {
+        Session::forget('customer_email');
+        Session::flush();
+        return redirect()->route('cuisine');
     }
 }

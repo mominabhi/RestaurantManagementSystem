@@ -3,6 +3,7 @@
         @section('wrap')
             <div class="wrap">
                 <br>
+                <a class="btn btn-danger" href="{{route('user.logout')}}">Logout</a>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="wrap-col">
                         <div class="box">
@@ -71,6 +72,5 @@
                         </section>
                     </div>
             </div>
-
 @endsection
 
