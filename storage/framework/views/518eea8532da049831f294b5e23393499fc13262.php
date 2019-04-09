@@ -1,8 +1,8 @@
         <?php echo $__env->make('pages.links', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<a class="btn btn-danger" href="<?php echo e(route('user.logout')); ?>">Logout</a>
         <?php $__env->startSection('wrap'); ?>
             <div class="wrap">
                 <br>
+                <a class="btn btn-danger" href="<?php echo e(route('user.logout')); ?>">Logout</a>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="wrap-col">
                         <div class="box">
@@ -72,7 +72,6 @@
                         </section>
                     </div>
             </div>
-
 <?php $__env->stopSection(); ?>
 
 

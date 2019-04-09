@@ -33,18 +33,6 @@ class MasterController extends Controller
             ->with('cuisines', $cuisine);
     }
 
-    public function cuisine_detail($id)
-    {
-        if (Session::has('customer_email')) {
-            $cuisine = CuisineList::find($id);
-            Session::put('cuisine_id',$id);
-            return view('pages.cuisine_detail')->with('cuisine', $cuisine);
-        } else {
-            return redirect()->route('user.login');
-        }
-
-    }
-
     public function cuisine_order(Request $request)
     {
         $online_order = new Online_order();
@@ -64,22 +52,22 @@ class MasterController extends Controller
         return view('pages.registration');
     }
 
-    public function customer_login(Request $request,$id)
+    public function customer_login(Request $request)
     {
-        $password=$request->input('password');
-        $email=$request->input('email');
-             $customer=Customer::where('password',$password)
-                 ->where('email',$email)->first();
-             if($customer)
-             {
-                 return Redirect::route('cuisine_detail', $id);
-//                return Redirect::intended('cuisine_detail/'.$id);
-//                 return redirect()->intended('cuisine_detail');
-             }
-             else{
-                 return redirect()->route('user.login')->with('error','not loggedin');
-             }
+        $id = Session::get('cuisine_id_lulu');
+        $password = $request->input('password');
+        $email = $request->input('email');
+        $customer = Customer::where('password', $password)
+            ->where('email', $email)->first();
+        if ($customer) {
+            Session::put('customer_id', $customer->id);
+            Session::put('customer_email', $customer->email);
+            return Redirect::intended('cuisine_detail/' . $id);
+        } else {
+            return redirect()->route('user.login')->with('error', 'not loggedin');
+        }
     }
+
 
     public function customer_registration(Request $request)
     {
@@ -93,7 +81,7 @@ class MasterController extends Controller
         $customer = new Customer();
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
-        $customer->password =$request->input('password');
+        $customer->password = $request->input('password');
         $customer->password_confirmation = $request->input('password_confirmation');
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
@@ -101,6 +89,20 @@ class MasterController extends Controller
         Session::put('customer_id', $customer->id);
         Session::put('customer_email', $customer->email);
         return redirect()->intended('cuisine_detail/{id}');
+    }
+    public function cuisine_detail($id)
+    {
+
+        if (Session::has('customer_email')) {
+            Session::forget('cuisine_id_lulu');
+            Session::flush();
+            $cuisine = CuisineList::find($id);
+            Session::put('cuisine_id', $id);
+            return view('pages.cuisine_detail')->with('cuisine', $cuisine);
+        } else {
+            return redirect()->route('user.login');
+        }
+
     }
     public function customer_logout()
     {

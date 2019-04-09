@@ -13,6 +13,9 @@
                 <div class="wrap-col">
                     <div class="box">
                         <div>
+                            @php
+                            Session::put('cuisine_id_lulu',$cuisine->id);
+                            @endphp
                             <h2>{{$cuisine->name}}</h2>
                             <figure><img src="{{asset($cuisine->image)}}" alt=""></figure>
                             <p class="pad_bot1">Price:{{$cuisine->price}} ৳</p>

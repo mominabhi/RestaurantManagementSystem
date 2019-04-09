@@ -1,3 +1,4 @@
+
 @extends('index')
         @include('pages.links')
         @section('wrap')
