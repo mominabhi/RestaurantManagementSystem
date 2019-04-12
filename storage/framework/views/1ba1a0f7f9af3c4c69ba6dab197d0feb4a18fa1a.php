@@ -13,9 +13,6 @@
                 <div class="wrap-col">
                     <div class="box">
                         <div>
-                            <?php
-                            Session::put('cuisine_id_lulu',$cuisine->id);
-                            ?>
                             <h2><?php echo e($cuisine->name); ?></h2>
                             <figure><img src="<?php echo e(asset($cuisine->image)); ?>" alt=""></figure>
                             <p class="pad_bot1">Price:<?php echo e($cuisine->price); ?> ৳</p>

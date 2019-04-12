@@ -104,12 +104,12 @@
                 <li class="sub-menu">
                     <a href="javascript:;" class="">
                         <i class="icon-cogs"></i>
-                        <span>Cuisine Order</span>
+                        <span>Cuisine Orders</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub">
-                        <li><a class="" href="{{route('admin.online_order')}}">Online Order</a></li>
-                        <li><a class="" href="#"> On-Desk Order</a></li>
+                        <li><a class="" href="{{route('admin.online_order')}}">Online Orders</a></li>
+                        <li><a class="" href="{{route('admin.total_online_order')}}"> Total Online Order</a></li>
                     </ul>
                 </li>
             </ul>

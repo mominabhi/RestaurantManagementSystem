@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOnlineOrdersTable extends Migration
+class CreateCuisineListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateOnlineOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('online_orders', function (Blueprint $table) {
+        Schema::create('cuisine_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('quantity');
-            $table->integer('customer_id');
-            $table->integer('cuisine_list_id');
+            $table->string('name');
+            $table->integer('price');
+            $table->string('type');
+            $table->text('description');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateOnlineOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('online_orders');
+        Schema::dropIfExists('cuisine_lists');
     }
 }

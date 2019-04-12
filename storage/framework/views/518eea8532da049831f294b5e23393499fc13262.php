@@ -2,7 +2,6 @@
         <?php $__env->startSection('wrap'); ?>
             <div class="wrap">
                 <br>
-                <a class="btn btn-danger" href="<?php echo e(route('user.logout')); ?>">Logout</a>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="wrap-col">
                         <div class="box">
@@ -15,7 +14,8 @@
                                 <form method="POST" action="<?php echo e(route('cuisine.order')); ?>">
                                     <?php echo e(csrf_field()); ?>
 
-                                    <input type="hidden" name="cuisineList_id" value="<?php echo e($cuisine->id); ?>">
+                                    <input type="hidden" name="cuisine_list_id" value="<?php echo e($cuisine->id); ?>">
+                                    <input type="hidden" name="customer_id" value="<?php echo e(Session::get('customer_id')); ?>">
                                     <div class="col-md-5 col-md-offset-1">
                                         <div class="form-group">
                                             <div class="col-md-6">

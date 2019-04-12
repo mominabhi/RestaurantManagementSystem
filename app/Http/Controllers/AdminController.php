@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\CuisineList;
+use App\Cuisine_list;
 use App\Online_order;
 use Illuminate\Http\Request;
 use Session;
@@ -39,7 +38,7 @@ class AdminController extends Controller
         $file->move($destination, $file_name);
         $image = $destination . $file_name;
 
-        $cuisine = new CuisineList();
+        $cuisine = new Cuisine_list();
         $cuisine->name = $request->input('name');
         $cuisine->price = $request->input('price');
         $cuisine->type = $request->input('type');
@@ -51,20 +50,20 @@ class AdminController extends Controller
 
     public function show_data_table()
     {
-        $cuisines = CuisineList::orderBy('created_at', 'desc')->get();
+        $cuisines = Cuisine_list::orderBy('created_at', 'desc')->get();
         return view('admin.dataTable')->with('cuisines', $cuisines);
     }
 
     public function edit_cuisine($id)
     {
-        $cuisine = CuisineList::find($id);
+        $cuisine = Cuisine_list::find($id);
         return view('admin.edit_cuisine')->with('cuisine', $cuisine);
     }
 
     public function cuisine_update(Request $request)
     {
         $id = $request->input('id');
-        $cuisine = CuisineList::find($id);
+        $cuisine = Cuisine_list::find($id);
         if ($cuisine->name == $request->input('name')) {
             $this->validate($request, [
                 'price' => 'required|integer',
@@ -97,7 +96,7 @@ class AdminController extends Controller
 
     public function delete_cuisine($id)
     {
-        $cuisine = CuisineList::find($id);
+        $cuisine = Cuisine_list::find($id);
         $cuisine->delete();
         return redirect()->route('admin.data_table')->with('success', 'Cuisine Deleted Successfully');
     }
@@ -106,10 +105,25 @@ class AdminController extends Controller
         $online_orders=Online_order::all();
         return view('admin.online_order')->with('online_orders',$online_orders);
     }
+    public function particular_order($id)
+    {
+        $orders=Online_order::where('customer_id',$id)->get();
+        return view('admin.particular_order')->with('online_orders',$orders);
+    }
     public function delete_order($id)
     {
         $cuisine = Online_order::find($id);
         $cuisine->delete();
         return redirect()->route('admin.online_order')->with('success', 'Order Deleted Delivered');
+    }
+    public function delete_particular_order($id)
+    {
+        $order=Online_order::where('customer_id',$id);
+        $order->delete();
+        return redirect()->route('admin.online_order')->with('success', 'Order Deleted Delivered');
+    }
+    public function total_online_order()
+    {
+
     }
 }

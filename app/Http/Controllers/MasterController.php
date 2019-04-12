@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CuisineList;
+use App\Cuisine_list;
 use App\Customer;
 use App\Online_order;
 use Illuminate\Http\Request;
@@ -28,33 +28,37 @@ class MasterController extends Controller
 
     public function showCuisine()
     {
-        $cuisine = CuisineList::all();
+        $cuisine = Cuisine_list::all();
         return view('pages.cuisine')
             ->with('cuisines', $cuisine);
     }
-
-    public function cuisine_order(Request $request)
+    public function cuisine_detail($id)
     {
-        $online_order = new Online_order();
-        $online_order->cuisineList_id = $request->input('cuisineList_id');
-        $online_order->quantity = $request->input('quantity');
-        $online_order->save();
-        return redirect()->route('cuisine')->with('success', 'Successfully Ordered');
+        if (Session::has('customer_email')) {
+            $cuisine = Cuisine_list::find($id);
+            Session::put('cuisine_id', $id);
+            return view('pages.cuisine_detail')->with('cuisine', $cuisine);
+        } else {
+            return Redirect::intended('user/login/'.$id);
+        }
+
     }
 
-    public function login()
+    public function login($id)
     {
-        return view('pages.login');
-    }
-
-    public function registration()
-    {
-        return view('pages.registration');
+        if(Session::has('customer_email'))
+        {
+            return Redirect::intended('cuisine_detail/' .$id);
+        }
+        else{
+            Session::put('food_id',$id);
+            return view('pages.login');
+        }
     }
 
     public function customer_login(Request $request)
     {
-        $id = Session::get('cuisine_id_lulu');
+        $get_id=Session::get('food_id');
         $password = $request->input('password');
         $email = $request->input('email');
         $customer = Customer::where('password', $password)
@@ -62,15 +66,14 @@ class MasterController extends Controller
         if ($customer) {
             Session::put('customer_id', $customer->id);
             Session::put('customer_email', $customer->email);
-            return Redirect::intended('cuisine_detail/' . $id);
+            return Redirect::intended('cuisine_detail/' .$get_id);
         } else {
-            return redirect()->route('user.login')->with('error', 'not loggedin');
+            return Redirect::to('user/login/' .$get_id);
         }
     }
-
-
     public function customer_registration(Request $request)
     {
+        $get_id=Session::get('food_id');
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:customers,email',
@@ -86,28 +89,28 @@ class MasterController extends Controller
         $customer->phone = $request->input('phone');
         $customer->address = $request->input('address');
         $customer->save();
-        Session::put('customer_id', $customer->id);
-        Session::put('customer_email', $customer->email);
-        return redirect()->intended('cuisine_detail/{id}');
-    }
-    public function cuisine_detail($id)
-    {
-
-        if (Session::has('customer_email')) {
-            Session::forget('cuisine_id_lulu');
-            Session::flush();
-            $cuisine = CuisineList::find($id);
-            Session::put('cuisine_id', $id);
-            return view('pages.cuisine_detail')->with('cuisine', $cuisine);
+        if ($customer) {
+            Session::put('customer_id', $customer->id);
+            Session::put('customer_email', $customer->email);
+            return Redirect::intended('cuisine_detail/' .$get_id);
         } else {
-            return redirect()->route('user.login');
+            return Redirect::to('user/login/' .$get_id);
         }
-
     }
+
     public function customer_logout()
     {
         Session::forget('customer_email');
         Session::flush();
         return redirect()->route('cuisine');
+    }
+    public function cuisine_order(Request $request)
+    {
+        $online_order = new Online_order();
+        $online_order->quantity = $request->input('quantity');
+        $online_order->customer_id = $request->input('customer_id');
+        $online_order->cuisine_list_id = $request->input('cuisine_list_id');
+        $online_order->save();
+        return redirect()->route('cuisine')->with('success', 'Successfully Ordered');
     }
 }

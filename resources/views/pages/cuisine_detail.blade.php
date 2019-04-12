@@ -4,7 +4,6 @@
         @section('wrap')
             <div class="wrap">
                 <br>
-                <a class="btn btn-danger" href="{{route('user.logout')}}">Logout</a>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="wrap-col">
                         <div class="box">
@@ -16,7 +15,8 @@
                                 <p class="pad_bot1">{{$cuisine->description}}</p>
                                 <form method="POST" action="{{route('cuisine.order')}}">
                                     {{csrf_field()}}
-                                    <input type="hidden" name="cuisineList_id" value="{{$cuisine->id}}">
+                                    <input type="hidden" name="cuisine_list_id" value="{{$cuisine->id}}">
+                                    <input type="hidden" name="customer_id" value="{{ Session::get('customer_id') }}">
                                     <div class="col-md-5 col-md-offset-1">
                                         <div class="form-group">
                                             <div class="col-md-6">

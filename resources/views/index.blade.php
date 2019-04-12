@@ -52,13 +52,24 @@
                         </ul>
                     </nav>
                     <nav>
-                        <ul id="menu">
-                            <li><a href="{{url('/')}}">Restaurant</a></li>
-                            <li><a href="{{url('/cuisine')}}">Cuisine</a></li>
-                            <li><a href="#">Wine List</a></li>
-                            <li><a href="#">CookBook</a></li>
-                            <li><a href="#">Contacts</a></li>
-                        </ul>
+
+                        @if(Session::has('customer_email'))
+                            <ul id="menu">
+                                <li><a href="{{url('/')}}">Restaurant</a></li>
+                                <li><a href="{{url('/cuisine')}}">Cuisine</a></li>
+                                <li><a href="#">Wine List</a></li>
+                                <li><a href="#">CookBook</a></li>
+                                <li><a class="button1" href="{{route('user.logout')}}">Logout</a></li>
+                            </ul>
+                            @else
+                            <ul id="menu">
+                                <li><a href="{{url('/')}}">Restaurant</a></li>
+                                <li><a href="{{url('/cuisine')}}">Cuisine</a></li>
+                                <li><a href="#">Wine List</a></li>
+                                <li><a href="#">CookBook</a></li>
+                                <li><a href="#">CookBook</a></li>
+                            </ul>
+                            @endif
                     </nav>
                 </header>
                 <!-- / header -->

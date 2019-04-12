@@ -52,13 +52,24 @@
                         </ul>
                     </nav>
                     <nav>
-                        <ul id="menu">
-                            <li><a href="<?php echo e(url('/')); ?>">Restaurant</a></li>
-                            <li><a href="<?php echo e(url('/cuisine')); ?>">Cuisine</a></li>
-                            <li><a href="#">Wine List</a></li>
-                            <li><a href="#">CookBook</a></li>
-                            <li><a href="#">Contacts</a></li>
-                        </ul>
+
+                        <?php if(Session::has('customer_email')): ?>
+                            <ul id="menu">
+                                <li><a href="<?php echo e(url('/')); ?>">Restaurant</a></li>
+                                <li><a href="<?php echo e(url('/cuisine')); ?>">Cuisine</a></li>
+                                <li><a href="#">Wine List</a></li>
+                                <li><a href="#">CookBook</a></li>
+                                <li><a class="button1" href="<?php echo e(route('user.logout')); ?>">Logout</a></li>
+                            </ul>
+                            <?php else: ?>
+                            <ul id="menu">
+                                <li><a href="<?php echo e(url('/')); ?>">Restaurant</a></li>
+                                <li><a href="<?php echo e(url('/cuisine')); ?>">Cuisine</a></li>
+                                <li><a href="#">Wine List</a></li>
+                                <li><a href="#">CookBook</a></li>
+                                <li><a href="#">CookBook</a></li>
+                            </ul>
+                            <?php endif; ?>
                     </nav>
                 </header>
                 <!-- / header -->
